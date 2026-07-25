@@ -27,7 +27,7 @@ export default function Home() {
         <div className=" flex justify-center flex-col ml-39 gap-9 pt-29">
           <div >
             <p className="text-yellow-400 font-bold text-6xl font-serif ">
-              A link in bio
+              A link in bio has been added
             </p>
             <p className="text-yellow-400 font-bold text-6xl font-serif">
               built for you.
