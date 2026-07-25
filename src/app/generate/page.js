@@ -8,7 +8,6 @@ const Page = () => {
   const [handle, sethandle] = useState("")
   const [pic, setpic] = useState("")
 
-  // const [linktext, setlinktext] = useState("")
   const [links, setlinks] = useState([{ link: "", linktext: "" }])
 
   const HandleChanges = (index, linktext, link) => {
@@ -24,21 +23,8 @@ const Page = () => {
     })
   }
 
-
-  // const [linksList, setLinksList] = useState([])
-
   const addlink = () => {
     setlinks(links.concat([{ link: "", linktext: "" }]))
-    // if (!links || !linktext) {
-    //   toast.error("Please fill out both link text and URL!");
-    //   return;
-    // }
-    // // setLinksList([...linksList, { linktext: linktext, link: link }]);
-    // // setlink("");
-    // // setlinktext("");
-    // // setpic("");
-    // // sethandle("");
-    // toast.success("Link added to your list!");
   }
 
   const submitData = async () => {
@@ -52,7 +38,6 @@ const Page = () => {
       pic: pic,
       links: links
     };
-    console.log(payload);
 
     try {
       const response = await fetch('/api/generate', {
@@ -66,13 +51,11 @@ const Page = () => {
       const data = await response.json();
 
       if (data.success) {
-
-        toast.success(`🎉 ${data.message || 'Your BitTree was successfully saved!'}`);
+        toast.success(`${data.message || 'Your BitTree was successfully saved!'}`);
         sethandle("");
         setpic("");
         setlinks([{ link: "", linktext: "" }]);
       } else {
-
         toast.error(data.message || 'Something went wrong saving to the database.');
       }
     } catch (error) {
@@ -81,16 +64,15 @@ const Page = () => {
     }
   }
 
-
   return (
-    <div className='bg-[#E9C0E9] min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-36'>
+    <div className='bg-[#E9C0E9] min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-24 md:pt-36'>
 
-      <div className='flex flex-col justify-center px-8 md:px-10 lg:px-24 xl:px-32 text-[#322A4E]'>
-        <h1 className='font-bold text-4xl lg:text-4xl mb-10'>Create your Bittree</h1>
+      <div className='flex flex-col justify-center px-6 sm:px-8 md:px-10 lg:px-24 xl:px-32 text-[#322A4E]'>
+        <h1 className='font-bold text-3xl md:text-4xl mb-8 md:mb-10'>Create your Bittree</h1>
 
         {/* Step 1 */}
-        <div className="mb-8">
-          <h2 className='font-semibold text-xl lg:text-2xl mb-4 text-[#443862]'>Step 1: Claim your Handle</h2>
+        <div className="mb-6 md:mb-8">
+          <h2 className='font-semibold text-lg md:text-xl lg:text-2xl mb-3 md:mb-4 text-[#443862]'>Step 1: Claim your Handle</h2>
           <input
             value={handle}
             onChange={e => sethandle(e.target.value)}
@@ -101,10 +83,10 @@ const Page = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="mb-8">
-          <h2 className='font-semibold text-xl lg:text-2xl mb-4 text-[#493d68] '>Step 2: Add Links</h2>
+        <div className="mb-6 md:mb-8">
+          <h2 className='font-semibold text-lg md:text-xl lg:text-2xl mb-3 md:mb-4 text-[#493d68]'>Step 2: Add Links</h2>
           {links && links.map((item, index) => {
-            return <div key={index} className='flex flex-wrap gap-3 items-center'>
+            return <div key={index} className='flex flex-col sm:flex-row gap-3 items-start sm:items-center'>
               <input
                 value={item.linktext}
                 onChange={e => HandleChanges(index, e.target.value, item.link)}
@@ -132,7 +114,7 @@ const Page = () => {
 
         {/* Step 3 */}
         <div className="mb-8">
-          <h2 className='font-semibold text-xl lg:text-2xl mb-4 text-[#443862]'>Step 3: Add Picture and Finalize</h2>
+          <h2 className='font-semibold text-lg md:text-xl lg:text-2xl mb-3 md:mb-4 text-[#443862]'>Step 3: Add Picture and Finalize</h2>
           <div className='flex flex-col gap-4'>
             <input
               value={pic}
@@ -141,7 +123,6 @@ const Page = () => {
               type="text"
               placeholder='Enter link to your Picture'
             />
-
 
             <button
               onClick={() => { submitData() }}
@@ -153,9 +134,9 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-start lg:items-center w-full h-full p-8 lg:pt-0">
+      <div className="flex justify-center items-start lg:items-center w-full h-full p-6 md:p-8 lg:pt-0">
         <img
-          className='w-full max-w-[550px] object-contain drop-shadow-2xl'
+          className='w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[550px] object-contain drop-shadow-2xl'
           src="/moonie.jpg"
           alt="Generate your links"
         />

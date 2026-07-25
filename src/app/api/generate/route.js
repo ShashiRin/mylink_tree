@@ -1,11 +1,11 @@
-import clientPromise from "../../../../lib/mongodb"
+import connectToDatabase from "../../../../lib/mongodb"
 
 export async function POST(request) {
     try {
        
         const body = await request.json()
 
-        const client = await clientPromise;
+        const client = await connectToDatabase();
         const db = client.db("bittree")
         const collection = db.collection("links")
 
